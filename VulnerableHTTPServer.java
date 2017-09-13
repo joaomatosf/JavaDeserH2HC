@@ -1,10 +1,14 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import sun.misc.BASE64Decoder;
+
 import java.io.*;
+import java.lang.annotation.IncompleteAnnotationException;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
-import java.util.Base64;
+//this import is only for java 1.8
+//import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -25,7 +29,7 @@ import java.util.zip.GZIPInputStream;
  * **** Uso ****
  *
  * Compilando:
- * $ javac VulnerableHTTPServer.java
+ * $ javac VulnerableHTTPServer.java -XDignore.symbol.file
  *
  * Executando
  * $ java VulnerableHTTPServer
@@ -35,21 +39,21 @@ import java.util.zip.GZIPInputStream;
  *
  * @author @joaomatosf
  */
+
 public class VulnerableHTTPServer {
 
     public static void banner(){
         System.out.println("==================================================================");
-        System.out.println("Simple Java HTTP Server for Deserialization Lab v0.01");
-        System.out.println("https://github.com/joaomatosf/JavaDeserH2HC");
-        System.out.println("\nJRE Version: "+System.getProperty("java.version"));
-        System.out.println("------------------------------------------------------------------");
+        System.out.println(" Simple Java HTTP Server for Deserialization Lab v0.01");
+        System.out.println(" https://github.com/joaomatosf/JavaDeserH2HC");
+        System.out.println("==================================================================");
         System.out.println("You can inject java serialized objects in the following formats:\n");
-        System.out.println("1) Binary in HTTP POST (ie \\xAC\\xED). Ex:\n" +
+        System.out.println(" 1) Binary in HTTP POST (ie \\xAC\\xED). Ex:\n" +
                 "    $ curl 127.0.0.1:8000/ --data-binary @ObjectFile.ser\n"+
-                "\n2) Base64 or Gzip+Base64 via HTTP POST parameters (eg. ViewState=rO0 or ViewState=H4sI....). Ex:\n" +
+                "\n 2) Base64 or Gzip+Base64 via HTTP POST parameters (eg. ViewState=rO0 or ViewState=H4sI....). Ex:\n" +
                 "    $ echo -n \"H4sICAeH...\" | curl 127.0.0.1:8000/ -d @-\n"+
                 "    $ echo -n \"rO0ABXNy...\" | curl 127.0.0.1:8000/ -d @-\n"+
-                "\n3) Base64 or Gzip+Base64 in cookies (eg. Cookie: Jsessionid=rO0... or Cookie: Jsessionid=H4sI...). Ex:\n"+
+                "\n 3) Base64 or Gzip+Base64 in cookies (eg. Cookie: Jsessionid=rO0... or Cookie: Jsessionid=H4sI...). Ex:\n"+
                 "    $ curl 127.0.0.1:8000/ -H \"cookie: jsessionid=H4sICAeH...\"\n"+
                 "    $ curl 127.0.0.1:8000/ -H \"cookie: jsessionid=rO0ABXNy...\"\n");
 
@@ -66,7 +70,9 @@ public class VulnerableHTTPServer {
         server.createContext("/", new HTTPHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-        System.out.println("\n[INFO]: Listening on port "+port);
+        System.out.println("\nJRE Version: "+System.getProperty("java.version"));
+        System.out.println("[INFO]: Listening on port "+port);
+        System.out.println();
     }
 
 
@@ -84,7 +90,6 @@ public class VulnerableHTTPServer {
 
                 String object = t.getRequestHeaders().get("cookie").get(0);
                 object = object.split("=").length > 1 ? object.split("=")[1] : object.split("=")[0];
-
                 if (object.startsWith("H4sI") || object.startsWith("rO0") )
                     responseMsg = deserialize(object);
                 else
@@ -126,21 +131,25 @@ public class VulnerableHTTPServer {
             os.close();
 
         }
-
         public String deserialize(String object){
 
             ObjectInputStream ois = null;
             InputStream is = null;
             GZIPInputStream gis = null;
 
-            try {
-                object = URLDecoder.decode(object, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                return "Invalid encoding. You should use URL Encode!\n";
+            // if payload is urlencoded
+            if (object.contains("%2B")) {
+                try {
+                    object = URLDecoder.decode(object, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    return "Invalid encoding. You should use URL Encode!\n";
+                }
             }
 
             try {
-                byte[] b64DecodedObj = Base64.getDecoder().decode(object);
+                byte[] b64DecodedObj = new BASE64Decoder().decodeBuffer(object);
+                // This another implementation of Base64 is only for java >= 1.8
+                //byte[] b64DecodedObj = Base64.getDecoder().decode(object);
                 is = new ByteArrayInputStream(b64DecodedObj);
             }catch (Exception e){
                 return "Invalid Base64!\n";
@@ -151,8 +160,9 @@ public class VulnerableHTTPServer {
                     gis = new GZIPInputStream(is);
                     ois = new ObjectInputStream(gis);
                 } catch (IOException e) {
-                    return "The Stream not contains a Java Object!\n";
-                } catch (Exception e) {
+                   return "The Stream not contains a Java Object!\n";
+                }
+                catch (Exception e) {
                     return "Invalid Gzip stream!\n";
                 }
             }
@@ -173,12 +183,20 @@ public class VulnerableHTTPServer {
                 int number = (Integer) ois.readObject();
             }
             catch (ClassNotFoundException e) {
-                return "Serialized class not found in classpath";
+                return "Serialized class not found in classpath\n";
             }
             catch (IOException e) {
                 return e.toString()+"\n";
             }
             catch (ClassCastException e){
+                e.printStackTrace();
+            } catch (IncompleteAnnotationException e){
+                e.printStackTrace();
+                System.out.println("\n[INFO] This payload not works in JRE >= 8u72. Try another version such as those\n" +
+                        "       which use TiedMapEntry + HashSet (by @matthiaskaiser).\n");
+                return "This payload not works in JRE >= 8u72. Try another version such as those which use TiedMapEntry + HashSet (by @matthiaskaiser).\n";
+            }
+            catch (Exception e){
                 e.printStackTrace();
             }
 
@@ -205,8 +223,16 @@ public class VulnerableHTTPServer {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                return "Serialized class not found in classpath";
+                return "Serialized class not found in classpath\n";
             } catch (ClassCastException e){
+                e.printStackTrace();
+            } catch (IncompleteAnnotationException e){
+                e.printStackTrace();
+                System.out.println("\n[INFO] This payload not works in JRE >= 8u72. Try another version such as those\n" +
+                        "       which use TiedMapEntry + HashSet (by @matthiaskaiser).\n");
+                return "This payload not works in JRE >= 8u72. Try another version such as those which use TiedMapEntry + HashSet (by @matthiaskaiser).\n";
+            }
+            catch (Exception e){
                 e.printStackTrace();
             }
 

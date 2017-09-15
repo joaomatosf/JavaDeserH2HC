@@ -43,19 +43,19 @@ import java.util.zip.GZIPInputStream;
 public class VulnerableHTTPServer {
 
     public static void banner(){
-        System.out.println("==================================================================");
-        System.out.println(" Simple Java HTTP Server for Deserialization Lab v0.01");
-        System.out.println(" https://github.com/joaomatosf/JavaDeserH2HC");
-        System.out.println("==================================================================");
+        System.out.println("* =============================================================== *");
+        System.out.println("*    Simple Java HTTP Server for Deserialization Lab v0.01        *");
+        System.out.println("*    https://github.com/joaomatosf/JavaDeserH2HC                  *");
+        System.out.println("* =============================================================== *");
         System.out.println("You can inject java serialized objects in the following formats:\n");
         System.out.println(" 1) Binary in HTTP POST (ie \\xAC\\xED). Ex:\n" +
-                "    $ curl 127.0.0.1:8000/ --data-binary @ObjectFile.ser\n"+
-                "\n 2) Base64 or Gzip+Base64 via HTTP POST parameters (eg. ViewState=rO0 or ViewState=H4sI....). Ex:\n" +
-                "    $ echo -n \"H4sICAeH...\" | curl 127.0.0.1:8000/ -d @-\n"+
-                "    $ echo -n \"rO0ABXNy...\" | curl 127.0.0.1:8000/ -d @-\n"+
-                "\n 3) Base64 or Gzip+Base64 in cookies (eg. Cookie: Jsessionid=rO0... or Cookie: Jsessionid=H4sI...). Ex:\n"+
-                "    $ curl 127.0.0.1:8000/ -H \"cookie: jsessionid=H4sICAeH...\"\n"+
-                "    $ curl 127.0.0.1:8000/ -H \"cookie: jsessionid=rO0ABXNy...\"\n");
+                "    $ curl 127.0.0.1:8000 --data-binary @ObjectFile.ser\n"+
+                "\n 2) Base64 or Gzip+Base64 via HTTP POST parameters. Ex:\n" +
+                "    $ curl 127.0.0.1:8000 -d \"ViewState=H4sICAeH...\"\n"+
+                "    $ curl 127.0.0.1:8000 -d \"ViewState=rO0ABXNy...\"\n"+
+                "\n 3) Base64 or Gzip+Base64 in cookies. Ex:\n"+
+                "    $ curl 127.0.0.1:8000 -H \"Cookie: JSESSIONID=H4sICAeH...\"\n"+
+                "    $ curl 127.0.0.1:8000 -H \"Cookie: JSESSIONID=rO0ABXNy...\"\n");
 
         System.out.println("OBS: To test gadgets in specific libraries, run with -cp param. Ex:\n" +
                 "$ java -cp .:commons-collections-3.2.1.jar VulnerableHTTPServer");
@@ -115,8 +115,9 @@ public class VulnerableHTTPServer {
                     InputStreamReader isr = new InputStreamReader(pbis, "utf-8");
                     BufferedReader br = new BufferedReader(isr);
                     String body = br.readLine();
-                    if (body.startsWith("H4sI") || body.startsWith("rO0") )
-                        responseMsg = deserialize(body); // deserialize H4sI, rO0...
+                    String object = body.split("=").length > 1 ? body.split("=")[1] : body.split("=")[0];
+                    if (object.startsWith("H4sI") || object.startsWith("rO0") )
+                        responseMsg = deserialize(object); // deserialize H4sI, rO0...
                 }
 
 

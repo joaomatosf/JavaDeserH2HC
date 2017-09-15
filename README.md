@@ -49,22 +49,22 @@ $ java -cp .:commons-collections-3.2.1.jar VulnerableHTTPServer
 
 
 ```
-'==================================================================
-Simple Java HTTP Server for Deserialization Lab v0.01
-https://github.com/joaomatosf/JavaDeserH2HC
-==================================================================
+* =============================================================== *
+*    Simple Java HTTP Server for Deserialization Lab v0.01        *
+*    https://github.com/joaomatosf/JavaDeserH2HC                  *
+* =============================================================== *
 You can inject java serialized objects in the following formats:
 
  1) Binary in HTTP POST (ie \xAC\xED). Ex:
-   $ curl 127.0.0.1:8000/ --data-binary @ObjectFile.ser
+   $ curl 127.0.0.1:8000 --data-binary @ObjectFile.ser
 
- 2) Base64 or Gzip+Base64 via HTTP POST parameters (eg. ViewState=rO0 or ViewState=H4sI....). Ex:
-   $ echo -n "H4sICAeH..." | curl 127.0.0.1:8000/ -d @-
-   $ echo -n "rO0ABXNy..." | curl 127.0.0.1:8000/ -d @-
+ 2) Base64 or Gzip+Base64 via HTTP POST parameters. Ex:
+   $ curl 127.0.0.1:8000 -d "ViewState=H4sICAeH..."
+   $ curl 127.0.0.1:8000 -d "ViewState=rO0ABXNy..."
 
- 3) Base64 or Gzip+Base64 in cookies (eg. Cookie: Jsessionid=rO0... or Cookie: Jsessionid=H4sI...). Ex:
-   $ curl 127.0.0.1:8000/ -H "cookie: jsessionid=H4sICAeH..."
-   $ curl 127.0.0.1:8000/ -H "cookie: jsessionid=rO0ABXNy..."
+ 3) Base64 or Gzip+Base64 in cookies. Ex:
+   $ curl 127.0.0.1:8000 -H "Cookie: JSESSIONID=H4sICAeH..."
+   $ curl 127.0.0.1:8000 -H "Cookie: JSESSIONID=rO0ABXNy..."
 
 OBS: To test gadgets in specific libraries, run with -cp param. Ex:
 $ java -cp .:commons-collections-3.2.1.jar VulnerableHTTPServer

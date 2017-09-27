@@ -65,7 +65,13 @@ You can inject java serialized objects in the following formats:
  3) Base64 or Gzip+Base64 in cookies. Ex:
    $ curl 127.0.0.1:8000 -H "Cookie: JSESSIONID=H4sICAeH..."
    $ curl 127.0.0.1:8000 -H "Cookie: JSESSIONID=rO0ABXNy..."
-
+   
+ 4) Base64 of AES-CBC encrypted with hardcoded Apache Shiro key. Ex:
+   $ curl 127.0.0.1:8000 -H "Cookie: rememberMe=MTIzNDU2Nzg...
+   
+ 5) XML for XStream RCE vulnerability/serialization. Ex:
+   $ curl 127.0.0.1:8000 -d @file.xml
+   
 OBS: To test gadgets in specific libraries, run with -cp param. Ex:
 $ java -cp .:commons-collections-3.2.1.jar VulnerableHTTPServer
 ==================================================================

@@ -21,17 +21,17 @@ import java.util.*;
  * Note que esse exemplo (que usa a AnnotationInvocationHandler como trigger)
  * deverá funcionar em sistemas com JRE < 8u72. Em sistemas com versões superiores,
  * deve-se usar outro gadget como trigger, a exemplo do BadAttributeValueExpException
- * proposto por Matthias Kaiser.
+ * ou um HashMap + TiedMapEntry, propostos por Matthias Kaiser.
  *
  * -----------------------------------------------------------------------
- * * Mais detalhes na 14a edição da H2HC (hackers to hackers) magazine:
+ * * Mais detalhes na 12a edição da H2HC (hackers to hackers) magazine:
  * * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *
  * OBS: Esse código tem fins apenas didáticos. Algumas cadeias de
  * transformers são baseadas nas versões de Chris Frohoff e/ou Matthias Kaiser
  *
- **** Uso ****
+ **** USAGE ****
  *
  * Compilando:
  * $ javac -cp .:commons-collections-3.2.1.jar ExampleCommonsCollections1.java

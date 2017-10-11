@@ -7,11 +7,11 @@ import java.util.Map;
  * fluxo de execucão durante a desserialização (utilizando Dynamic Proxy).
  * Esse gatget invoca um método de um campo (map.entrySet()) e, por isso,
  * pode ser usado como trampolim para o método invoke() de classes que implementem
- * InvocationHandler. No exemplo da revista, será desviado para a classe
+ * InvocationHandler. No exemplo da revista, o fluxo será desviado para a classe
  * SomeInvocationHandler, que contém um código que se deseja alcançar.
  *
  * -----------------------------------------------------------------------
- * Mais detalhes na 14a edição da H2HC (hackers to hackers) magazine:
+ * Mais detalhes na 12a edição da H2HC (hackers to hackers) magazine:
  * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *

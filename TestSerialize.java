@@ -8,11 +8,11 @@ import java.io.ObjectOutputStream;
  * é automaticamente invocado.
  *
  * -----------------------------------------------------------------------
- * Mais detalhes na 14a edição da H2HC (hackers to hackers) magazine:
+ * Mais detalhes na 12a edição da H2HC (hackers to hackers) magazine:
  * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *
- * **** Uso ****
+ * **** USAGE ****
  *
  * Compilando:
  * $ javac TestSerialize.java

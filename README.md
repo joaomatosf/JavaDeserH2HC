@@ -27,7 +27,7 @@ As **root**, run:
 # curl http://www.joaomatosf.com/rnp/java_files/jdk-8u20-linux-x64.tar.gz -o jdk-8u20-linux-x64.tar.gz 
 # tar zxvf jdk-8u20-linux-x64.tar.gz
 # rm -rf /usr/bin/java*
-# ln -s /opt/jdk1.8.0_20/bin/java* /usr/bin
+# ln -s /opt/jdk1.8.0_20/bin/j* /usr/bin
 # java -version
   java version "1.8.0_20" 
 ```

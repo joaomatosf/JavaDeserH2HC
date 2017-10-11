@@ -17,17 +17,17 @@ import java.util.*;
  * Note que esse payload requer que a commons-collections vulnerável esteja
  * disponível no classpath (<= 3.2.1) e deverá funcionar em sistemas com
  * JRE < 8u72. Em versões maiores, deve-se usufruir de outro gadget como trigger
- * (eg. BadAttributeValueExpException).
+ * (eg. BadAttributeValueExpException ou HashMap + TiedMapEntry).
  *
  * -----------------------------------------------------------------------
- * Mais detalhes na 14a edição da H2HC (hackers to hackers) magazine:
+ * Mais detalhes na 12a edição da H2HC (hackers to hackers) magazine:
  * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *
  * OBS: Esse código tem fins apenas didáticos. Algumas cadeias de
  * transformers são baseadas nas versões de Chris Frohoff e/ou Matthias Kaiser
  *
- **** Uso ****
+ **** USAGE ****
  *
  * Compilando:
  * $ javac -cp .:commons-collections-3.2.1.jar SleepExample.java

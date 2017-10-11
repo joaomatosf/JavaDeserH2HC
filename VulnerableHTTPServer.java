@@ -44,7 +44,7 @@ import java.util.zip.GZIPInputStream;
  * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *
- * **** USO ****
+ * **** USAGE ****
  *
  * Compilando:
  * $ javac VulnerableHTTPServer.java -XDignore.symbol.file
@@ -78,8 +78,8 @@ public class VulnerableHTTPServer {
                 "    $ curl 127.0.0.1:8000 -H \"Cookie: JSESSIONID=H4sICAeH...\"\n"+
                 "\n 4) Base64 of AES-CBC encrypted with hardcoded Apache Shiro key. Ex:\n" +
                 "    $ curl 127.0.0.1:8000 -H \"Cookie: rememberMe=MTIzNDU2Nzg...\"\n"+
-                "\n 5) XML for XStream RCE vulnerability :\n" +
-                "    $ curl 127.0.0.1:8000 -d @file.xml\n");
+                "\n 5) XML for XStream RCE vulnerability/serialization. Ex:\n" +
+                "    $ curl 127.0.0.1:8000 -d @file.xml\n -H \"Content-Type: application/xml\"");
 
 
 

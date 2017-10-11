@@ -11,20 +11,20 @@ import java.util.*;
 
 /**
  * Exemplo que demonstra que um Map decorado com um LazyMap e uma ChainedTransformer
- * como factory pode levar a execução de comando (através da invocação de métodos arbitrários
+ * como factory pode levar a execução de comando (através da invocação a métodos arbitrários
  * via Reflexão) caso seja acessada uma chave inexistente no map.
  * Esse é um dos princípios usados para executar comandos usufruíndo de gadgets que tentam
  * acessar chaves inexistentes em campos (controlados pelos usuários) em seus magic methods.
  *
  * -----------------------------------------------------------------------
- * Mais detalhes na 14a edição da H2HC (hackers to hackers) magazine:
+ * Mais detalhes na 12a edição da H2HC (hackers to hackers) magazine:
  * https://www.h2hc.com.br/revista/
  * -----------------------------------------------------------------------
  *
  * OBS: Esse código tem fins apenas didáticos. Algumas cadeias de
  * transformers são baseadas nas versões de Chris Frohoff e/ou Matthias Kaiser
  *
- **** Uso ****
+ **** USAGE ****
  *
  * Compilando:
  * $ javac -cp .:commons-collections-3.2.1.jar ExampleTransformersWithLazyMap.java

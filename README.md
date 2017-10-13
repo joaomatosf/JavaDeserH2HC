@@ -1,10 +1,10 @@
 # Lab for Java Deserialization Vulnerabilities
 
-This content is related to the paper written for the 14th edition of H2HC magazine. 
+This content is related to the paper written for the 12th edition of H2HC magazine. 
 See full paper in: https://www.h2hc.com.br/revista/
 >Um overview sobre as bases das falhas de desserialização nativa em ambientes Java (JVM)
 
->An overview of the bases of native deserialization failures in Java environments (JVM)
+>An overview of deserialization vulnerabilities in the Java Virtual Machine (JVM)
 
 Content
 --

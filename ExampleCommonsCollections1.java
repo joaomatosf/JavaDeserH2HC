@@ -54,8 +54,9 @@ public class ExampleCommonsCollections1 {
             System.exit(1);
         }
 
-        // Seleciona o interpretador correto de acordo com o sistema (/bin/sh ou cmd.exe)
-        boolean isUnix = System.getProperty("file.separator").equals("/");
+        // Seleciona o interpretador correto de acordo com o comando a ser executado
+        //boolean isUnix = System.getProperty("file.separator").equals("/");
+        boolean isUnix = !args[0].contains("cmd.exe") && !args[0].contains("powershell.exe");
         String cmd[];
         if (isUnix)
             cmd = new String[]{"/bin/sh", "-c", args[0]}; // Comando a ser executado

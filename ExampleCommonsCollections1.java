@@ -59,7 +59,7 @@ public class ExampleCommonsCollections1 {
         boolean isUnix = !args[0].contains("cmd.exe") && !args[0].contains("powershell.exe");
         String cmd[];
         if (isUnix)
-            cmd = new String[]{"/bin/sh", "-c", args[0]}; // Comando a ser executado
+            cmd = new String[]{"/bin/bash", "-c", args[0]}; // Comando a ser executado
         else
             cmd = new String[]{"cmd.exe", "/c", args[0]}; // Comando a ser executado
 

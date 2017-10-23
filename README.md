@@ -2,6 +2,9 @@
 
 This content is related to the paper written for the 12th edition of H2HC magazine. 
 See full paper in: https://www.h2hc.com.br/revista/
+
+Slides and video of the talk will be available soon.
+
 >Um overview sobre as bases das falhas de desserialização nativa em ambientes Java (JVM)
 
 >An overview of deserialization vulnerabilities in the Java Virtual Machine (JVM)
@@ -13,7 +16,23 @@ The goal is to provide a better understanding so that you can develop new payloa
 
 There is also a vulnerable testing application (VulnerableHTTPServer.java), which helps you test your payloads.
 
-Usage Examples
+Examples (PoC's)
+------
+
+* PoC CVE-2017-7504 - JBossMQ JMS Invocation Layer (https://access.redhat.com/security/cve/cve-2017-7504)
+
+[![Alt text](https://img.youtube.com/vi/jVMr4eeJ2Po/0.jpg)](https://www.youtube.com/watch?v=jVMr4eeJ2Po)
+
+* PoC CVE-2017-12149 - JBoss 6.X and EAP 5.X (https://access.redhat.com/security/cve/cve-2017-12149)
+
+[![Alt text](https://img.youtube.com/vi/JIWMItSA8l0/0.jpg)](https://www.youtube.com/watch?v=JIWMItSA8l0)
+
+* PoC Exploiting struts2-rest XStream Deserialization with Reverse Shell
+
+[![Alt text](https://img.youtube.com/vi/IrZOlqio0nw/0.jpg)](https://www.youtube.com/watch?v=IrZOlqio0nw)
+
+
+Lab Usage Examples
 --
 First of all you need to read the full paper. Then review the sample codes and use the vulnerable testing application to understand how payloads work.
 

@@ -16,6 +16,12 @@ The goal is to provide a better understanding so that you can develop new payloa
 
 There is also a vulnerable testing application (VulnerableHTTPServer.java), which helps you test your payloads.
 
+Slides
+--
+
+[![Alt text](https://image.slidesharecdn.com/h2hc2017joaomatosfjavadeser-171025200215/95/an-overview-of-deserialization-vulnerabilities-in-the-java-virtual-machine-jvm-h2hc-2017-1-638.jpg?cb=1508963584)](https://www.slideshare.net/joaomatosf_/an-overview-of-deserialization-vulnerabilities-in-the-java-virtual-machine-jvm-h2hc-2017)
+
+
 Examples (PoC's)
 ------
 

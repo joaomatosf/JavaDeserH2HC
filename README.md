@@ -141,3 +141,12 @@ Data deserialized!
 $ ls -all /tmp/h2hc_2017
 -rw-r--r-- 1 joao joao 0 Sep 13 22:47 /tmp/h2hc_2017
 ```
+
+Update 2022 - Pré-Auth RCE (default installation) in JBoss EAP 5.X/6AS, JBoss Operations Network and others RedHat products
+--
+I've been using these bugs for years in internal engagements. Old but still a gold to lateral inside business/core networks.
+I had already leaked this at the AlligatorCon - Recife (I think at 2018) and in the 2019 Hackers to Hackers Conference (H2HC) Advanced Web Training (with my friends @reefbr and @marcioalm).
+
+***Slides***
+
+[![Alt text](https://s3.amazonaws.com/files.joaomatosf.com/slides/alligator_slides.png)](https://s3.amazonaws.com/files.joaomatosf.com/slides/alligator_slides.pdf)
